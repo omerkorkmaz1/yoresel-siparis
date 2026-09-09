@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Yöresel Dağıtım">
+  <title>Trabzon Yöresel Dağıtım ve Sipariş</title>
+  
+  <style>
+    :root {
+      --primary: #800000;
+      --primary-dark: #5c0000;
+      --secondary: #205493;
+      --bg: #f2f2f7;
+      --card-bg: #ffffff;
+      --text: #1c1c1e;
+      --border: #e5e5ea;
+      --green: #34c759;
+      --radius: 14px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding-bottom: 90px;
+      padding-top: env(safe-area-inset-top, 20px);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #a31d1d 100%);
+      color: white;
+      padding: 22px 18px 18px;
+      text-align: center;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 4px 16px rgba(128, 0, 0, 0.25);
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    .container {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #636366;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      background-color: #fbfbfd;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      background-color: #fff;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .product-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .btn-delete {
+      background: #ff3b30;
+      color: white;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-secondary {
+      background: #f2f2f7;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .total-box {
+      background: #fafafc;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 14px;
+      border: 1px solid #e1e1e8;
+    }
+
+    .total-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .total-line.final {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+      border-top: 1px solid #ddd;
+      padding-top: 8px;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+      margin-top: 16px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr 1fr;
+      background: #e5e5ea;
+      border-radius: 12px;
+      padding: 3px;
+      margin-bottom: 16px;
+      gap: 2px;
+    }
+
+    .tab-btn {
+      padding: 9px 4px;
+      border: none;
+      background: transparent;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #666;
+      border-radius: 9px;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .load-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      border-left: 4px solid var(--secondary);
+    }
+
+    .load-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .load-qty {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      background: #ffebeb;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .summary-info {
+      background: #e8f4fd;
+      border: 1px solid #c8e1f8;
+      color: #0b5394;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .history-card {
+      background: white;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      background: #e1f5fe;
+      color: #0288d1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚐 Trabzon Yöresel Dağıtım</h1>
+    <p>Sipariş Toplama ve Araç Yükleme Takibi</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('order', event)">✍️ Sipariş</button>
+      <button class="tab-btn" onclick="switchTab('load', event)">📦 Araç Yükleme</button>
+      <button class="tab-btn" onclick="switchTab('history', event)">📋 Siparişler</button>
+      <button class="tab-btn" onclick="switchTab('customers', event)">👥 Müşteriler</button>
+    </div>
+
+    <!-- TAB 1: YENİ SİPARİŞ -->
+    <div id="tab-order">
+      <div class="card">
+        <div class="card-title">👤 Müşteri Bilgileri</div>
+        
+        <div class="form-group">
+          <label>Kayıtlı Müşterilerden Seç</label>
+          <select id="quickCustomer" onchange="fillCustomerFromSelect()">
+            <option value="">-- Yeni Müşteri Gir --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Müşteri Adı Soyadı</label>
+          <input type="text" id="custName" placeholder="Örn: Hasan Bey" required>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Telefon Numarası</label>
+            <input type="tel" id="custPhone" placeholder="05XXXXXXXXX" required>
+          </div>
+          <div class="form-group">
+            <label>Teslim Şehir / İlçe</label>
+            <input type="text" id="custCity" placeholder="Örn: Samsun / İlkadım">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Teslimat Adresi</label>
+          <textarea id="custAddress" rows="2" placeholder="Bırakılacak adres veya not..."></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📦 Ürün ve Kg Seçimi</div>
+        <div id="productList"></div>
+        <button type="button" class="btn-secondary" onclick="addProductRow()">+ Yeni Ürün Ekle</button>
+
+        <div class="total-box">
+          <div class="total-line">
+            <span>Ürünler Toplamı:</span>
+            <span id="subTotal">0,00 ₺</span>
+          </div>
+          <div class="total-line" style="align-items: center;">
+            <span>Teslimat / Yol Payı:</span>
+            <input type="number" id="cargoFee" value="0" style="width: 85px; padding: 4px 8px; text-align: right;" oninput="calculateTotal()">
+          </div>
+          <div class="total-line final">
+            <span>Genel Toplam:</span>
+            <span id="grandTotal">0,00 ₺</span>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label>Sipariş Notu</label>
+          <input type="text" id="orderNote" placeholder="Örn: 1 kg paketler halinde...">
+        </div>
+
+        <button type="button" class="btn-whatsapp" onclick="sendOrderViaWhatsApp()">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Siparişi Kaydet & WhatsApp Fişi Çıkar
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB 2: ARAÇ YÜKLEME LİSTESİ -->
+    <div id="tab-load" style="display: none;">
+      <div class="card">
+        <div class="card-title">
+          <span>🚐 Arabaya Yüklenecek Mallar</span>
+          <button onclick="shareLoadSummaryWhatsApp()" style="background:#25d366; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer;">WhatsApp'a At</button>
+        </div>
+
+        <div class="summary-info">
+          Bu ekran, müşterilerden aldığın tüm siparişleri toplayarak yola çıkmadan önce bagaja toplam hangi üründen kaç kilo koyman gerektiğini gösterir.
+        </div>
+
+        <div id="loadSummaryList"></div>
+
+        <div class="total-box" style="margin-top:10px;">
+          <div class="total-line">
+            <span>Toplam Sipariş Sayısı:</span>
+            <strong id="totalOrderCount">0 Adet</strong>
+          </div>
+          <div class="total-line">
+            <span>Toplam Yük Ağırlığı:</span>
+            <strong id="totalWeightCount">0 Kg</strong>
+          </div>
+          <div class="total-line final">
+            <span>Toplam Tahsil Edilecek Tutar:</span>
+            <strong id="totalRevenueCount">0,00 ₺</strong>
+          </div>
+        </div>
+
+        <button onclick="resetTripOrders()" style="background:#f2f2f7; color:#ff3b30; border:1px solid #ff3b30; padding:10px; border-radius:10px; font-size:12px; font-weight:700; width:100%; margin-top:14px; cursor:pointer;">
+          🔄 Yeni Dağıtım / Siparişleri Sıfırla
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB 3: GEÇMİŞ SİPARİŞLER -->
+    <div id="tab-history" style="display: none;">
+      <div class="card">
+        <div class="card-title">📋 Alınan Siparişlerin Detayı</div>
+        <div id="ordersList"></div>
+      </div>
+    </div>
+
+    <!-- TAB 4: MÜŞTERİ REHBERİ -->
+    <div id="tab-customers" style="display: none;">
+      <div class="card">
+        <div class="card-title">👥 Kayıtlı Müşteriler</div>
+        <div id="customersList"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const PRODUCT_LIST = ['Yaylacık tereyağı', 'Bayram Özel tereyağı', 'Camiboğazı tereyağı', 'Aygurdere tereyağı', 'Akçaabat mandıra telli peynir', 'Akçaabat mandıra kolot peynir', 'Yaylacık telli peynir', 'Yaylacık kolot peynir', 'Tonya telli peynir', 'Tulum peynir', 'Tonya tost kaşarı', 'Kars kaşarı'];
+
+    let customers = JSON.parse(localStorage.getItem('yoresel_customers')) || [];
+    let orders = JSON.parse(localStorage.getItem('yoresel_orders')) || [];
+
+    window.onload = function() {
+      addProductRow();
+      renderCustomerSelect();
+      renderCustomers();
+      renderOrders();
+      renderLoadSummary();
+    };
+
+    function switchTab(tabName, event) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-order').style.display = 'none';
+      document.getElementById('tab-load').style.display = 'none';
+      document.getElementById('tab-history').style.display = 'none';
+      document.getElementById('tab-customers').style.display = 'none';
+
+      if (event) event.currentTarget.classList.add('active');
+
+      if (tabName === 'order') {
+        document.getElementById('tab-order').style.display = 'block';
+      } else if (tabName === 'load') {
+        document.getElementById('tab-load').style.display = 'block';
+        renderLoadSummary();
+      } else if (tabName === 'history') {
+        document.getElementById('tab-history').style.display = 'block';
+        renderOrders();
+      } else if (tabName === 'customers') {
+        document.getElementById('tab-customers').style.display = 'block';
+        renderCustomers();
+      }
+    }
+
+    function addProductRow(prodName = "", qty = 1, price = "") {
+      const container = document.getElementById('productList');
+      const rowId = 'row_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+
+      const div = document.createElement('div');
+      div.className = 'product-row';
+      div.id = rowId;
+
+      let options = `<option value="">-- Ürün Seçin --</option>`;
+      PRODUCT_LIST.forEach(p => {
+        const isSelected = p === prodName ? 'selected' : '';
+        options += `<option value="${p}" ${isSelected}>${p}</option>`;
+      });
+
+      div.innerHTML = `
+        <div>
+          <select class="prod-select">${options}</select>
+        </div>
+        <div>
+          <input type="number" step="0.5" class="prod-qty" placeholder="Kg" value="${qty}" oninput="calculateTotal()">
+        </div>
+        <div>
+          <input type="number" class="prod-price" placeholder="Kg ₺" value="${price}" oninput="calculateTotal()">
+        </div>
+        <div>
+          <button type="button" class="btn-delete" onclick="removeProductRow('${rowId}')">✕</button>
+        </div>
+      `;
+
+      container.appendChild(div);
+      calculateTotal();
+    }
+
+    function removeProductRow(rowId) {
+      const row = document.getElementById(rowId);
+      if (row) row.remove();
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      let subTotal = 0;
+      document.querySelectorAll('.product-row').forEach(row => {
+        const qty = parseFloat(row.querySelector('.prod-qty').value) || 0;
+        const price = parseFloat(row.querySelector('.prod-price').value) || 0;
+        subTotal += (qty * price);
+      });
+
+      const cargo = parseFloat(document.getElementById('cargoFee').value) || 0;
+      const grandTotal = subTotal + cargo;
+
+      document.getElementById('subTotal').innerText = subTotal.toLocaleString('tr-TR', { minimumFractionDigits: 2 }) + ' ₺';
+      document.getElementById('grandTotal').innerText = grandTotal.toLocaleString('tr-TR', { minimumFractionDigits: 2 }) + ' ₺';
+
+      return { subTotal, cargo, grandTotal };
+    }
+
+    function renderLoadSummary() {
+      const container = document.getElementById('loadSummaryList');
+      const itemTotals = {};
+      let grandTotalRevenue = 0;
+      let totalWeight = 0;
+
+      orders.forEach(order => {
+        grandTotalRevenue += (order.grandTotal || 0);
+        order.items.forEach(item => {
+          const name = item.name.trim();
+          const qty = parseFloat(item.qty) || 0;
+          if (!itemTotals[name]) {
+            itemTotals[name] = 0;
+          }
+          itemTotals[name] += qty;
+          totalWeight += qty;
+        });
+      });
+
+      const keys = Object.keys(itemTotals);
+      if (keys.length === 0) {
+        container.innerHTML = '<p style="color:#888; font-size:13px; text-align:center; padding: 24px 0;">Henüz bekleyen sipariş yok. Sipariş eklendikçe araca yüklenecek toplam mallar buraya yansır.</p>';
+      } else {
+        let html = '';
+        keys.forEach(prodName => {
+          html += `
+            <div class="load-item">
+              <span class="load-name">${prodName}</span>
+              <span class="load-qty">${itemTotals[prodName].toFixed(1)} Kg</span>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
+
+      document.getElementById('totalOrderCount').innerText = orders.length + ' Sipariş';
+      document.getElementById('totalWeightCount').innerText = totalWeight.toFixed(1) + ' Kg';
+      document.getElementById('totalRevenueCount').innerText = grandTotalRevenue.toLocaleString('tr-TR', { minimumFractionDigits: 2 }) + ' ₺';
+    }
+
+    function shareLoadSummaryWhatsApp() {
+      if (orders.length === 0) {
+        alert("Paylaşılacak sipariş veya yük bulunamadı.");
+        return;
+      }
+
+      const itemTotals = {};
+      let totalWeight = 0;
+      let grandTotalRevenue = 0;
+
+      orders.forEach(order => {
+        grandTotalRevenue += (order.grandTotal || 0);
+        order.items.forEach(item => {
+          const name = item.name.trim();
+          const qty = parseFloat(item.qty) || 0;
+          itemTotals[name] = (itemTotals[name] || 0) + qty;
+          totalWeight += qty;
+        });
+      });
+
+      let msg = `*🚐 TRABZON YÖRESEL - ARACA YÜKLENECEK MALLAR LİSTESİ*\n`;
+      msg += `----------------------------------\n`;
+      Object.keys(itemTotals).forEach(name => {
+        msg += `📦 *${name}:* ${itemTotals[name].toFixed(1)} Kg\n`;
+      });
+      msg += `----------------------------------\n`;
+      msg += `📊 *Toplam Ağırlık:* ${totalWeight.toFixed(1)} Kg\n`;
+      msg += `👥 *Toplam Müşteri Sayısı:* ${orders.length} Kişi\n`;
+      msg += `💰 *Toplam Tahsil Edilecek:* ${grandTotalRevenue.toLocaleString('tr-TR')} ₺\n`;
+      msg += `----------------------------------\n`;
+      msg += `Hayırlı ve bereketli yolculuklar! 🌾`;
+
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function resetTripOrders() {
+      if (confirm("Bu sevkiyattaki siparişleri ve araç yükleme listesini sıfırlamak istiyor musun? (Müşteri rehberin silinmez)")) {
+        orders = [];
+        localStorage.setItem('yoresel_orders', JSON.stringify(orders));
+        renderLoadSummary();
+        renderOrders();
+      }
+    }
+
+    function renderCustomerSelect() {
+      const select = document.getElementById('quickCustomer');
+      select.innerHTML = '<option value="">-- Yeni Müşteri Gir --</option>';
+      customers.forEach((c, index) => {
+        select.innerHTML += `<option value="${index}">${c.name} (${c.city || 'Konum Yok'})</option>`;
+      });
+    }
+
+    function fillCustomerFromSelect() {
+      const index = document.getElementById('quickCustomer').value;
+      if (index === "") return;
+      const c = customers[index];
+      document.getElementById('custName').value = c.name;
+      document.getElementById('custPhone').value = c.phone;
+      document.getElementById('custCity').value = c.city;
+      document.getElementById('custAddress').value = c.address;
+    }
+
+    function renderCustomers() {
+      const list = document.getElementById('customersList');
+      if (customers.length === 0) {
+        list.innerHTML = '<p style="color:#888; font-size:13px; text-align:center; padding: 20px 0;">Kayıtlı müşteri yok.</p>';
+        return;
+      }
+      list.innerHTML = '';
+      customers.forEach((c, idx) => {
+        list.innerHTML += `
+          <div style="padding: 10px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong>${c.name}</strong> <br>
+              <span style="font-size: 12px; color: #666;">📞 ${c.phone} | 📍 ${c.city || '-'}</span>
+            </div>
+            <button onclick="deleteCustomer(${idx})" style="background:#ff3b30; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:11px;">Sil</button>
+          </div>
+        `;
+      });
+    }
+
+    function deleteCustomer(idx) {
+      if (confirm('Bu müşteriyi silmek istediğine emin misin?')) {
+        customers.splice(idx, 1);
+        localStorage.setItem('yoresel_customers', JSON.stringify(customers));
+        renderCustomerSelect();
+        renderCustomers();
+      }
+    }
+
+    function renderOrders() {
+      const list = document.getElementById('ordersList');
+      if (orders.length === 0) {
+        list.innerHTML = '<p style="color:#888; font-size:13px; text-align:center; padding: 20px 0;">Henüz sipariş kaydı yok.</p>';
+        return;
+      }
+      list.innerHTML = '';
+      orders.slice().reverse().forEach((ord) => {
+        list.innerHTML += `
+          <div class="history-card">
+            <div class="history-header">
+              <span>${ord.customerName}</span>
+              <span class="badge">${ord.grandTotal.toFixed(2)} ₺</span>
+            </div>
+            <div style="color: #666; font-size: 11px; margin-bottom: 6px;">📅 ${ord.date} | 📍 ${ord.city || '-'} | 📞 ${ord.phone}</div>
+            <div style="margin-bottom: 6px;">
+              ${ord.items.map(it => `• ${it.name}: <strong>${it.qty} Kg</strong> (${(it.qty*it.price).toFixed(2)} ₺)`).join('<br>')}
+            </div>
+            ${ord.cargo > 0 ? `<div style="font-size:12px; color:#555;">🚚 Yol/Kargo Payı: ${ord.cargo.toFixed(2)} ₺</div>` : ''}
+            ${ord.note ? `<div style="font-size:12px; color:#c0392b; margin-top:4px;">📝 ${ord.note}</div>` : ''}
+          </div>
+        `;
+      });
+    }
+
+    function sendOrderViaWhatsApp() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const city = document.getElementById('custCity').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+      const note = document.getElementById('orderNote').value.trim();
+
+      if (!name) {
+        alert("Lütfen müşteri adını girin!");
+        return;
+      }
+
+      const items = [];
+      document.querySelectorAll('.product-row').forEach(r => {
+        const prod = r.querySelector('.prod-select').value;
+        const qty = parseFloat(r.querySelector('.prod-qty').value) || 0;
+        const price = parseFloat(r.querySelector('.prod-price').value) || 0;
+        if (prod && qty > 0) items.push({ name: prod, qty, price, total: qty * price });
+      });
+
+      if (items.length === 0) {
+        alert("Lütfen en az bir ürün ve miktar girin!");
+        return;
+      }
+
+      const { subTotal, cargo, grandTotal } = calculateTotal();
+
+      const custIdx = customers.findIndex(c => c.name.toLowerCase() === name.toLowerCase());
+      if (custIdx >= 0) {
+        customers[custIdx] = { name, phone, city, address };
+      } else {
+        customers.push({ name, phone, city, address });
+      }
+      localStorage.setItem('yoresel_customers', JSON.stringify(customers));
+      renderCustomerSelect();
+
+      const newOrder = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'}),
+        customerName: name,
+        phone,
+        city,
+        address,
+        items,
+        subTotal,
+        cargo,
+        grandTotal,
+        note
+      };
+      orders.push(newOrder);
+      localStorage.setItem('yoresel_orders', JSON.stringify(orders));
+
+      let msg = `*🏔️ TRABZON YÖRESEL SİPARİŞ BİLGİSİ*\n`;
+      msg += `----------------------------------\n`;
+      msg += `👤 *Müşteri:* ${name}\n`;
+      if (city) msg += `📍 *Teslimat Bölgesi:* ${city}\n`;
+      if (address) msg += `🏠 *Adres:* ${address}\n`;
+      msg += `----------------------------------\n`;
+      msg += `🛒 *SİPARİŞ:*\n`;
+      items.forEach(it => {
+        msg += `• *${it.name}*\n  └ ${it.qty} Kg x ${it.price.toLocaleString('tr-TR')} ₺ = *${it.total.toLocaleString('tr-TR')} ₺*\n`;
+      });
+      msg += `----------------------------------\n`;
+      msg += `💵 *Ürün Tutarı:* ${subTotal.toLocaleString('tr-TR')} ₺\n`;
+      if (cargo > 0) msg += `🚚 *Teslimat/Yol:* ${cargo.toLocaleString('tr-TR')} ₺\n`;
+      msg += `🔥 *GENEL TOPLAM:* *${grandTotal.toLocaleString('tr-TR')} ₺*\n`;
+      if (note) msg += `📝 *Not:* ${note}\n`;
+      msg += `----------------------------------\n`;
+      msg += `Afiyet olsun, Trabzon'dan selamlar! 🌾`;
+
+      let cleanPhone = phone.replace(/\D/g, '');
+      if (cleanPhone.startsWith('0')) cleanPhone = '9' + cleanPhone;
+      else if (!cleanPhone.startsWith('90') && cleanPhone.length === 10) cleanPhone = '90' + cleanPhone;
+
+      const encoded = encodeURIComponent(msg);
+      const url = cleanPhone.length >= 10 
+        ? `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encoded}`
+        : `https://api.whatsapp.com/send?text=${encoded}`;
+
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
