@@ -2,66 +2,62 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Santa Doğal Ürünler</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Santa Doğal">
   <style>
     :root {
-      --primary: #800020;
-      --primary-dark: #5c0017;
+      --primary: #990000;
+      --primary-dark: #7a0000;
       --accent: #2e7d32;
-      --bg: #f8f9fa;
+      --bg: #f5f6f8;
       --card-bg: #ffffff;
-      --text: #212529;
-      --muted: #6c757d;
-      --border: #dee2e6;
+      --text: #222222;
+      --muted: #666666;
+      --border: #e2e4e8;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; overflow-x: hidden; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; width: 100vw; overflow-x: hidden; }
 
     header {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
       text-align: center;
-      padding: 16px 12px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      padding: 18px 12px;
+      border-bottom-left-radius: 18px;
+      border-bottom-right-radius: 18px;
+      box-shadow: 0 4px 12px rgba(153, 0, 0, 0.2);
     }
-    header h1 { font-size: 19px; font-weight: 800; }
-    header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
+    header h1 { font-size: 20px; font-weight: 800; }
+    header p { font-size: 12px; opacity: 0.9; margin-top: 3px; }
 
     .nav-tabs {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       background: white;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 67px;
-      z-index: 99;
-      overflow-x: auto;
+      border-radius: 12px;
+      margin: 12px;
+      padding: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
     }
     .nav-tab {
-      flex: 1;
-      min-width: 75px;
-      padding: 10px 4px;
+      padding: 8px 2px;
       text-align: center;
       font-size: 11px;
       font-weight: 700;
       color: var(--muted);
-      border-bottom: 3px solid transparent;
+      border-radius: 8px;
       cursor: pointer;
-      white-space: nowrap;
     }
     .nav-tab.active {
       color: var(--primary);
-      border-bottom-color: var(--primary);
-      background: #fff5f5;
+      background: #fdf0f0;
     }
 
-    .container { padding: 12px; max-width: 480px; margin: auto; }
+    .container { padding: 0 12px; max-width: 480px; margin: auto; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
@@ -69,84 +65,82 @@
       background: var(--card-bg);
       border-radius: 14px;
       padding: 14px;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      margin-bottom: 12px;
       border: 1px solid var(--border);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     }
     .card-title {
       font-size: 14px;
       font-weight: 700;
       color: var(--primary);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 6px;
-      border-bottom: 1px solid #f0f0f0;
-      padding-bottom: 6px;
     }
 
-    .field { margin-bottom: 10px; }
-    .field label { display: block; font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 4px; }
-    .field input, .field select, .field textarea {
+    .field { margin-bottom: 8px; }
+    .field label { display: block; font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; margin-bottom: 3px; }
+    .field input, .field select {
       width: 100%;
-      padding: 10px;
+      padding: 9px 10px;
       font-size: 14px;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: #fff;
       outline: none;
     }
-    .field input:focus, .field select:focus { border-color: var(--primary); }
 
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
-    /* Ürün Listesi Öğesi */
+    /* Esnek Ürün Satırı */
     .order-item-box {
-      background: #fdfdfd;
-      border: 1px solid #e9ecef;
+      background: #fbfbfb;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    .item-top {
-      display: flex;
-      gap: 6px;
+      padding: 8px;
       margin-bottom: 8px;
     }
-    .item-top select { flex: 1; padding: 8px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); }
+    .item-row-1 {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .item-row-1 select {
+      flex: 1;
+      padding: 8px;
+      font-size: 13px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: white;
+    }
     .btn-del {
-      background: #dc3545;
+      background: #e53935;
       color: white;
       border: none;
       width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
     }
-    .item-bottom {
+    .item-row-2 {
       display: grid;
-      grid-template-columns: 1fr 0.8fr 0.8fr;
+      grid-template-columns: 1.2fr 0.8fr 1fr;
       gap: 6px;
     }
-    .item-bottom select, .item-bottom input {
-      padding: 7px;
-      font-size: 13px;
+    .item-row-2 select, .item-row-2 input {
+      width: 100%;
+      padding: 7px 4px;
+      font-size: 12px;
       border: 1px solid var(--border);
       border-radius: 6px;
+      background: white;
       text-align: center;
-    }
-    .item-calc-info {
-      font-size: 11px;
-      color: var(--accent);
-      font-weight: 700;
-      text-align: right;
-      margin-top: 4px;
     }
 
     .btn-add-item {
       width: 100%;
-      padding: 9px;
+      padding: 10px;
       background: #fff;
       border: 1.5px dashed var(--primary);
       color: var(--primary);
@@ -159,20 +153,16 @@
 
     .btn {
       width: 100%;
-      padding: 13px;
+      padding: 12px;
       border-radius: 10px;
       border: none;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
     }
-    .btn-primary { background: var(--primary); color: white; }
     .btn-accent { background: var(--accent); color: white; }
+    .btn-primary { background: var(--primary); color: white; }
 
     .bottom-bar {
       position: fixed;
@@ -184,14 +174,12 @@
       justify-content: space-between;
       align-items: center;
       z-index: 101;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
     }
     .bottom-bar .total-title { font-size: 11px; color: var(--muted); }
-    .bottom-bar .total-val { font-size: 18px; font-weight: 800; color: var(--primary); }
+    .bottom-bar .total-val { font-size: 17px; font-weight: 800; color: var(--primary); }
 
-    .load-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
-    .load-table th, .load-table td { padding: 8px; border-bottom: 1px solid #eee; }
-    .load-table th { background: #fafafa; color: #555; text-align: left; }
+    .load-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; }
+    .load-table th, .load-table td { padding: 8px; border-bottom: 1px solid #eee; text-align: left; }
     .load-table td.num { text-align: right; font-weight: 700; }
   </style>
 </head>
@@ -199,21 +187,20 @@
 
   <header>
     <h1>🚐 Santa Doğal Ürünler</h1>
-    <p>Sipariş Toplama & Araç Yükleme Takibi</p>
+    <p>Sipariş Toplama ve Araç Yükleme Takibi</p>
   </header>
 
   <div class="nav-tabs">
     <div class="nav-tab active" onclick="switchTab('tab-siparis')">✍️ Sipariş</div>
-    <div class="nav-tab" onclick="switchTab('tab-yukleme')">📦 Araç Yükleme</div>
+    <div class="nav-tab" onclick="switchTab('tab-yukleme')">📦 Yükleme</div>
     <div class="nav-tab" onclick="switchTab('tab-gecmis')">📋 Siparişler</div>
     <div class="nav-tab" onclick="switchTab('tab-musteriler')">👥 Müşteriler</div>
   </div>
 
   <div class="container">
     
-    <!-- SEKME 1: SİPARİŞ OLUŞTURMA -->
+    <!-- SEKME 1: SİPARİŞ -->
     <div id="tab-siparis" class="tab-content active">
-      
       <div class="card">
         <div class="card-title">👤 Müşteri Bilgileri</div>
         
@@ -247,16 +234,16 @@
       </div>
 
       <div class="card">
-        <div class="card-title">📦 Ürün ve Paket Seçimi</div>
+        <div class="card-title">📦 Ürün ve Kg Seçimi</div>
         <div id="orderItemsContainer"></div>
         <button type="button" class="btn-add-item" onclick="addOrderItemRow()">+ Yeni Ürün Ekle</button>
       </div>
 
-      <button class="btn btn-accent" onclick="saveOrder(true)">💬 Kaydet & WhatsApp'a At</button>
+      <button class="btn btn-accent" onclick="saveOrder(true)">💬 Kaydet & WhatsApp'a Gönder</button>
       <button class="btn btn-primary" onclick="saveOrder(false)">💾 Sadece Kaydet</button>
     </div>
 
-    <!-- SEKME 2: ARAÇ YÜKLEME LİSTESİ -->
+    <!-- SEKME 2: YÜKLEME -->
     <div id="tab-yukleme" class="tab-content">
       <div class="card">
         <div class="card-title">🚐 Araca Yüklenecek Toplamlar</div>
@@ -264,7 +251,7 @@
           <thead>
             <tr>
               <th>Ürün & Paket</th>
-              <th style="text-align:center;">Adet</th>
+              <th style="text-align:center;">Paket Adet</th>
               <th style="text-align:right;">Toplam Kg</th>
             </tr>
           </thead>
@@ -274,21 +261,21 @@
       </div>
     </div>
 
-    <!-- SEKME 3: SİPARİŞLER -->
+    <!-- SEKME 3: SİPARİŞ GEÇMİŞİ -->
     <div id="tab-gecmis" class="tab-content">
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <div class="card-title" style="margin-bottom:0; border:none;">📋 Tüm Siparişler</div>
-          <button onclick="clearAllOrders()" style="color:#dc3545; background:none; border:none; font-size:11px; font-weight:700;">Tümünü Sıfırla</button>
+          <div class="card-title" style="margin:0;">📋 Kayıtlı Siparişler</div>
+          <button onclick="clearAllOrders()" style="color:#e53935; background:none; border:none; font-size:11px; font-weight:700;">Temizle</button>
         </div>
         <div id="ordersList"></div>
       </div>
     </div>
 
-    <!-- SEKME 4: MÜŞTERİLER REHBERİ -->
+    <!-- SEKME 4: MÜŞTERİLER -->
     <div id="tab-musteriler" class="tab-content">
       <div class="card">
-        <div class="card-title">👥 Kayıtlı Müşteri Rehberi</div>
+        <div class="card-title">👥 Müşteri Rehberi</div>
         <div id="customersList"></div>
       </div>
     </div>
@@ -300,25 +287,25 @@
       <div class="total-title">Sipariş Tutarı</div>
       <div class="total-val" id="grandTotal">0,00 ₺</div>
     </div>
-    <div style="font-size: 12px; color: var(--muted); text-align: right;" id="totalKgDisplay">
+    <div style="font-size: 11px; color: var(--muted); text-align: right;" id="totalKgDisplay">
       Toplam: 0.0 kg
     </div>
   </div>
 
   <script>
     const MASTER_PRODUCTS = [
-      { id: 1, name: "Yayık Tereyağı", price: 380, pkg: 1.0 },
-      { id: 2, name: "Tuzlu Köy Tereyağı", price: 390, pkg: 1.0 },
-      { id: 3, name: "Trabzon Telli Tel Peyniri", price: 320, pkg: 1.0 },
-      { id: 4, name: "Hakiki Kolot Peyniri", price: 340, pkg: 1.0 },
-      { id: 5, name: "Köy Minzi (Çökelek)", price: 180, pkg: 1.0 },
-      { id: 6, name: "Kelle Peyniri", price: 360, pkg: 1.0 },
-      { id: 7, name: "Taş Değirmen Mısır Unu", price: 90, pkg: 1.0 },
-      { id: 8, name: "Yayla Karakovan Balı", price: 650, pkg: 1.0 },
-      { id: 9, name: "Yayla Çiçek Balı", price: 450, pkg: 1.0 },
-      { id: 10, name: "Köy İncir Reçeli", price: 200, pkg: 1.0 },
-      { id: 11, name: "Vakfıkebir Köy Ekmeği", price: 100, pkg: 1.0 },
-      { id: 12, name: "Fındık Ezmesi", price: 260, pkg: 0.5 }
+      { id: 1, name: "Yayık Tereyağı", price: 380 },
+      { id: 2, name: "Tuzlu Köy Tereyağı", price: 390 },
+      { id: 3, name: "Trabzon Telli Tel Peyniri", price: 320 },
+      { id: 4, name: "Hakiki Kolot Peyniri", price: 340 },
+      { id: 5, name: "Köy Minzi (Çökelek)", price: 180 },
+      { id: 6, name: "Kelle Peyniri", price: 360 },
+      { id: 7, name: "Taş Değirmen Mısır Unu", price: 90 },
+      { id: 8, name: "Yayla Karakovan Balı", price: 650 },
+      { id: 9, name: "Yayla Çiçek Balı", price: 450 },
+      { id: 10, name: "Trabzon Köy İncir Reçeli", price: 200 },
+      { id: 11, name: "Vakfıkebir Köy Ekmeği", price: 100 },
+      { id: 12, name: "Fındık Ezmesi", price: 260 }
     ];
 
     let currentOrderRows = [];
@@ -339,27 +326,23 @@
       container.innerHTML = '';
 
       currentOrderRows.forEach(row => {
-        const prod = MASTER_PRODUCTS.find(p => p.id === row.prodId) || MASTER_PRODUCTS[0];
         const rowDiv = document.createElement('div');
         rowDiv.className = 'order-item-box';
 
         let prodOptions = MASTER_PRODUCTS.map(p => `<option value="${p.id}" ${p.id === row.prodId ? 'selected' : ''}>${p.name}</option>`).join('');
 
         rowDiv.innerHTML = `
-          <div class="item-top">
+          <div class="item-row-1">
             <select onchange="onProdChange('${row.id}', this.value)">${prodOptions}</select>
             <button type="button" class="btn-del" onclick="removeOrderItemRow('${row.id}')">✕</button>
           </div>
-          <div class="item-bottom">
+          <div class="item-row-2">
             <select onchange="onPkgChange('${row.id}', this.value)">
               <option value="1.0" ${row.pkgWeight == 1.0 ? 'selected' : ''}>1 kg Paket</option>
               <option value="0.5" ${row.pkgWeight == 0.5 ? 'selected' : ''}>0.5 kg Paket</option>
             </select>
             <input type="number" min="1" value="${row.qty}" placeholder="Adet" oninput="onQtyChange('${row.id}', this.value)">
             <input type="number" value="${row.price}" placeholder="Fiyat ₺" oninput="onPriceChange('${row.id}', this.value)">
-          </div>
-          <div class="item-calc-info">
-            Tutar: ${(row.qty * row.pkgWeight * row.price).toFixed(2)} ₺ (${(row.qty * row.pkgWeight).toFixed(1)} kg)
           </div>
         `;
         container.appendChild(rowDiv);
@@ -382,7 +365,7 @@
       const row = currentOrderRows.find(r => r.id == rowId);
       if (row) {
         row.pkgWeight = parseFloat(val);
-        renderOrderRows();
+        calculateOrderTotals();
       }
     }
 
@@ -421,7 +404,7 @@
       const address = document.getElementById('custAddress').value.trim();
 
       if (!name) { alert('Lütfen müşteri adını girin.'); return; }
-      if (currentOrderRows.length === 0) { alert('Lütfen en az bir ürün ekleyin.'); return; }
+      if (currentOrderRows.length === 0) { alert('Lütfen en az bir ürün seçin.'); return; }
 
       let items = currentOrderRows.map(r => {
         const prod = MASTER_PRODUCTS.find(p => p.id === r.prodId);
@@ -445,12 +428,10 @@
         name, phone, city, address, items, orderTotal, orderKg
       };
 
-      // Kaydet
       let orders = JSON.parse(localStorage.getItem('santa_orders') || '[]');
       orders.unshift(order);
       localStorage.setItem('santa_orders', JSON.stringify(orders));
 
-      // Müşteri rehberine ekle
       let customers = JSON.parse(localStorage.getItem('santa_customers') || '{}');
       customers[name] = { phone, city, address };
       localStorage.setItem('santa_customers', JSON.stringify(customers));
@@ -459,18 +440,18 @@
         let msg = `*SANTA DOĞAL ÜRÜNLER - SİPARİŞ FİŞİ*\n`;
         msg += `--------------------------------\n`;
         msg += `👤 *Müşteri:* ${name}\n`;
-        if (city) msg += `📍 *Konum:* ${city}\n`;
+        if (city) msg += `📍 *Bölge:* ${city}\n`;
         if (address) msg += `🏠 *Adres:* ${address}\n`;
         msg += `📅 *Tarih:* ${order.date}\n`;
         msg += `--------------------------------\n`;
         items.forEach(it => {
-          msg += `▫️ ${it.name}\n   ${it.qty} Adet (${it.pkgLabel}) = *${it.total.toFixed(2)} ₺*\n`;
+          msg += `▫️ ${it.name}\n   ${it.qty} Paket (${it.pkgLabel}) = *${it.total.toFixed(2)} ₺*\n`;
         });
         msg += `--------------------------------\n`;
         msg += `⚖️ *Toplam Ağırlık:* ${orderKg.toFixed(1)} kg\n`;
         msg += `💰 *GENEL TOPLAM:* ${orderTotal.toFixed(2)} ₺\n`;
         msg += `--------------------------------\n`;
-        msg += `Afiyet olsun, bizi tercih ettiğiniz için teşekkür ederiz! 🙏`;
+        msg += `Afiyet olsun, teşekkür ederiz! 🙏`;
 
         let cleanPhone = phone.replace(/[^0-9]/g, '');
         if (cleanPhone.startsWith('0')) cleanPhone = '9' + cleanPhone;
@@ -482,7 +463,6 @@
         alert('Sipariş başarıyla kaydedildi!');
       }
 
-      // Temizle
       document.getElementById('custName').value = '';
       document.getElementById('custPhone').value = '';
       document.getElementById('custCity').value = '';
@@ -534,7 +514,7 @@
 
       const keys = Object.keys(totals);
       if (keys.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#999; padding:15px;">Henüz kayıtlı sipariş yok.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#999; padding:15px;">Kayıtlı sipariş yok.</td></tr>`;
         return;
       }
 
@@ -551,7 +531,7 @@
 
     function shareLoadSummary() {
       const orders = JSON.parse(localStorage.getItem('santa_orders') || '[]');
-      if (orders.length === 0) { alert('Henüz kayıtlı sipariş yok.'); return; }
+      if (orders.length === 0) { alert('Kayıtlı sipariş yok.'); return; }
 
       let totals = {};
       let totalCarKg = 0;
@@ -596,7 +576,7 @@
               <span>${o.name}</span>
               <span style="color:var(--primary);">${o.orderTotal.toFixed(2)} ₺</span>
             </div>
-            <div style="font-size:11px; color:#777; margin:2px 0;">${o.date} ${o.city ? '| ' + o.city : ''} (Toplam: ${o.orderKg.toFixed(1)} kg)</div>
+            <div style="font-size:11px; color:#777; margin:2px 0;">${o.date} ${o.city ? '| ' + o.city : ''} (${o.orderKg.toFixed(1)} kg)</div>
             <ul style="font-size:12px; color:#444; padding-left:16px; margin-top:4px;">${itemsHtml}</ul>
           </div>
         `;
