@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Santa Doğal Ürünler</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,236 +12,284 @@
       --primary: #800020;
       --primary-dark: #5c0017;
       --accent: #2e7d32;
-      --bg: #f4f6f8;
+      --bg: #f8f9fa;
       --card-bg: #ffffff;
-      --text: #212121;
-      --text-muted: #666666;
-      --border: #e0e0e0;
+      --text: #212529;
+      --muted: #6c757d;
+      --border: #dee2e6;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
-    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; overflow-x: hidden; }
+
     header {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
       text-align: center;
-      padding: 20px 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      padding: 16px 12px;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    header h1 { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; }
-    header p { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+    header h1 { font-size: 19px; font-weight: 800; }
+    header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 
     .nav-tabs {
       display: flex;
       background: white;
       border-bottom: 1px solid var(--border);
       position: sticky;
-      top: 73px;
+      top: 67px;
       z-index: 99;
+      overflow-x: auto;
     }
     .nav-tab {
       flex: 1;
-      padding: 12px 5px;
+      min-width: 75px;
+      padding: 10px 4px;
       text-align: center;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: var(--muted);
       border-bottom: 3px solid transparent;
       cursor: pointer;
+      white-space: nowrap;
     }
     .nav-tab.active {
       color: var(--primary);
       border-bottom-color: var(--primary);
-      background: #fff8f8;
+      background: #fff5f5;
     }
 
-    .container { padding: 15px; max-width: 600px; margin: auto; }
+    .container { padding: 12px; max-width: 480px; margin: auto; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
     .card {
       background: var(--card-bg);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       border: 1px solid var(--border);
     }
-    .card h3 { font-size: 16px; margin-bottom: 12px; color: var(--primary); border-bottom: 1px solid #f0f0f0; padding-bottom: 6px; }
-
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #444; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      font-size: 15px;
-      outline: none;
-    }
-    .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
-
-    /* Ürün Satırı */
-    .product-row {
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 10px;
-    }
-    .prod-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .prod-name { font-size: 14px; font-weight: 700; color: #333; }
-    .prod-inputs {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 6px;
-    }
-    .prod-inputs select, .prod-inputs input {
-      padding: 8px 6px;
-      font-size: 13px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      text-align: center;
-      background: white;
-    }
-    .prod-subtotal {
-      text-align: right;
-      font-size: 12px;
+    .card-title {
+      font-size: 14px;
       font-weight: 700;
       color: var(--primary);
-      margin-top: 6px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 6px;
+    }
+
+    .field { margin-bottom: 10px; }
+    .field label { display: block; font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      outline: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--primary); }
+
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* Ürün Listesi Öğesi */
+    .order-item-box {
+      background: #fdfdfd;
+      border: 1px solid #e9ecef;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .item-top {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .item-top select { flex: 1; padding: 8px; font-size: 13px; border-radius: 8px; border: 1px solid var(--border); }
+    .btn-del {
+      background: #dc3545;
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .item-bottom {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr 0.8fr;
+      gap: 6px;
+    }
+    .item-bottom select, .item-bottom input {
+      padding: 7px;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .item-calc-info {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 700;
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    .btn-add-item {
+      width: 100%;
+      padding: 9px;
+      background: #fff;
+      border: 1.5px dashed var(--primary);
+      color: var(--primary);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
     }
 
     .btn {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       border-radius: 10px;
       border: none;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
+      margin-top: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .btn-primary { background: var(--primary); color: white; margin-top: 10px; }
-    .btn-accent { background: var(--accent); color: white; margin-top: 10px; }
-    .btn-secondary { background: #555; color: white; margin-top: 8px; font-size: 14px; padding: 10px; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-accent { background: var(--accent); color: white; }
 
     .bottom-bar {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       background: white;
       border-top: 1px solid var(--border);
-      padding: 12px 20px;
+      padding: 10px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 101;
-      box-shadow: 0 -3px 10px rgba(0,0,0,0.06);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
     }
-    .bottom-bar .total-title { font-size: 13px; color: var(--text-muted); }
-    .bottom-bar .total-val { font-size: 20px; font-weight: 800; color: var(--primary); }
+    .bottom-bar .total-title { font-size: 11px; color: var(--muted); }
+    .bottom-bar .total-val { font-size: 18px; font-weight: 800; color: var(--primary); }
 
-    .summary-badge {
-      display: inline-block;
-      background: #eef7ee;
-      color: var(--accent);
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .load-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-    .load-table th, .load-table td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
-    .load-table th { background: #fafafa; color: #555; font-size: 12px; }
+    .load-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    .load-table th, .load-table td { padding: 8px; border-bottom: 1px solid #eee; }
+    .load-table th { background: #fafafa; color: #555; text-align: left; }
     .load-table td.num { text-align: right; font-weight: 700; }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Santa Doğal Ürünler</h1>
-    <p>Mobil Sipariş & Araç Yükleme Yönetimi</p>
+    <h1>🚐 Santa Doğal Ürünler</h1>
+    <p>Sipariş Toplama & Araç Yükleme Takibi</p>
   </header>
 
   <div class="nav-tabs">
-    <div class="nav-tab active" onclick="switchTab('tab-siparis')">📦 Yeni Sipariş</div>
-    <div class="nav-tab" onclick="switchTab('tab-yukleme')">🚐 Araç Yükleme</div>
-    <div class="nav-tab" onclick="switchTab('tab-gecmis')">📜 Siparişler</div>
+    <div class="nav-tab active" onclick="switchTab('tab-siparis')">✍️ Sipariş</div>
+    <div class="nav-tab" onclick="switchTab('tab-yukleme')">📦 Araç Yükleme</div>
+    <div class="nav-tab" onclick="switchTab('tab-gecmis')">📋 Siparişler</div>
+    <div class="nav-tab" onclick="switchTab('tab-musteriler')">👥 Müşteriler</div>
   </div>
 
   <div class="container">
     
-    <!-- TAB 1: SİPARİŞ OLUŞTURMA -->
+    <!-- SEKME 1: SİPARİŞ OLUŞTURMA -->
     <div id="tab-siparis" class="tab-content active">
       
       <div class="card">
-        <h3>Müşteri Bilgileri</h3>
-        <div class="form-group">
+        <div class="card-title">👤 Müşteri Bilgileri</div>
+        
+        <div class="field">
+          <label>Kayıtlı Müşterilerden Seç</label>
+          <select id="savedCustSelect" onchange="fillSavedCustomer()">
+            <option value="">-- Yeni Müşteri Gir --</option>
+          </select>
+        </div>
+
+        <div class="field">
           <label>Müşteri Adı Soyadı</label>
-          <input type="text" id="custName" placeholder="Örn: Mehmet Bey">
+          <input type="text" id="custName" placeholder="Örn: Hasan Bey">
         </div>
-        <div class="form-group">
-          <label>Telefon / WhatsApp Numarası</label>
-          <input type="tel" id="custPhone" placeholder="05xxxxxxxxx">
+
+        <div class="row-2">
+          <div class="field">
+            <label>Telefon Numarası</label>
+            <input type="tel" id="custPhone" placeholder="05xxxxxxxxx">
+          </div>
+          <div class="field">
+            <label>Teslim Şehir / İlçe</label>
+            <input type="text" id="custCity" placeholder="Örn: Samsun / İlkadım">
+          </div>
         </div>
-        <div class="form-group">
-          <label>Teslimat Adresi / Mahalle</label>
-          <input type="text" id="custAddress" placeholder="Örn: Yıldızlı Mah. No:4">
+
+        <div class="field">
+          <label>Teslimat Adresi</label>
+          <input type="text" id="custAddress" placeholder="Bırakılacak adres veya not...">
         </div>
       </div>
 
       <div class="card">
-        <h3>Ürün Seçimi & Paket Tipi</h3>
-        <div id="productList"></div>
+        <div class="card-title">📦 Ürün ve Paket Seçimi</div>
+        <div id="orderItemsContainer"></div>
+        <button type="button" class="btn-add-item" onclick="addOrderItemRow()">+ Yeni Ürün Ekle</button>
       </div>
 
-      <button class="btn btn-accent" onclick="saveOrder(true)">💬 Siparişi Kaydet & WhatsApp'a Gönder</button>
-      <button class="btn btn-primary" onclick="saveOrder(false)">💾 Sadece Siparişi Kaydet</button>
+      <button class="btn btn-accent" onclick="saveOrder(true)">💬 Kaydet & WhatsApp'a At</button>
+      <button class="btn btn-primary" onclick="saveOrder(false)">💾 Sadece Kaydet</button>
     </div>
 
-    <!-- TAB 2: ARAÇ YÜKLEME LİSTESİ -->
+    <!-- SEKME 2: ARAÇ YÜKLEME LİSTESİ -->
     <div id="tab-yukleme" class="tab-content">
       <div class="card">
-        <h3>🚐 Araca Yüklenecek Toplamlar</h3>
-        <p style="font-size: 13px; color: var(--text-muted);">Tüm siparişlerin ürün ve paket tipine göre toplam adet/kg dökümü:</p>
-        
+        <div class="card-title">🚐 Araca Yüklenecek Toplamlar</div>
         <table class="load-table">
           <thead>
             <tr>
               <th>Ürün & Paket</th>
-              <th style="text-align:center;">Paket Adedi</th>
-              <th style="text-align:right;">Toplam (Kg/Adet)</th>
+              <th style="text-align:center;">Adet</th>
+              <th style="text-align:right;">Toplam Kg</th>
             </tr>
           </thead>
           <tbody id="loadTableBody"></tbody>
         </table>
-
         <button class="btn btn-accent" onclick="shareLoadSummary()">📲 Yükleme Listesini WhatsApp'a At</button>
       </div>
     </div>
 
-    <!-- TAB 3: SİPARİŞ GEÇMİŞİ -->
+    <!-- SEKME 3: SİPARİŞLER -->
     <div id="tab-gecmis" class="tab-content">
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3>Kayıtlı Siparişler</h3>
-          <button onclick="clearAllOrders()" style="color:red; background:none; border:none; font-size:12px; font-weight:700; cursor:pointer;">Tümünü Sıfırla</button>
+          <div class="card-title" style="margin-bottom:0; border:none;">📋 Tüm Siparişler</div>
+          <button onclick="clearAllOrders()" style="color:#dc3545; background:none; border:none; font-size:11px; font-weight:700;">Tümünü Sıfırla</button>
         </div>
-        <div id="ordersHistoryList"></div>
+        <div id="ordersList"></div>
+      </div>
+    </div>
+
+    <!-- SEKME 4: MÜŞTERİLER REHBERİ -->
+    <div id="tab-musteriler" class="tab-content">
+      <div class="card">
+        <div class="card-title">👥 Kayıtlı Müşteri Rehberi</div>
+        <div id="customersList"></div>
       </div>
     </div>
 
@@ -250,140 +298,173 @@
   <div class="bottom-bar" id="liveBottomBar">
     <div>
       <div class="total-title">Sipariş Tutarı</div>
-      <div class="total-val" id="grandTotal">0 ₺</div>
+      <div class="total-val" id="grandTotal">0,00 ₺</div>
     </div>
-    <div style="font-size: 12px; color: var(--text-muted); text-align: right;" id="totalKgDisplay">
-      Toplam: 0 kg
+    <div style="font-size: 12px; color: var(--muted); text-align: right;" id="totalKgDisplay">
+      Toplam: 0.0 kg
     </div>
   </div>
 
   <script>
-    // 12 Trabzon Ürünü ve Desteklenen Paket Tipleri
-    const PRODUCTS = [
-      { id: 1, name: "Yayık Tereyağı", packages: [{ label: "1 kg Paket", val: 1.0 }, { label: "0.5 kg Paket", val: 0.5 }], price: 380 },
-      { id: 2, name: "Tuzlu Köy Tereyağı", packages: [{ label: "1 kg Paket", val: 1.0 }, { label: "0.5 kg Paket", val: 0.5 }], price: 390 },
-      { id: 3, name: "Trabzon Telli Tel Peyniri", packages: [{ label: "1 kg Paket", val: 1.0 }, { label: "0.5 kg Paket", val: 0.5 }], price: 320 },
-      { id: 4, name: "Hakiki Kolot Peyniri", packages: [{ label: "1 kg Paket", val: 1.0 }, { label: "0.5 kg Paket", val: 0.5 }], price: 340 },
-      { id: 5, name: "Köy Minzi (Çökelek)", packages: [{ label: "1 kg Paket", val: 1.0 }, { label: "0.5 kg Paket", val: 0.5 }], price: 180 },
-      { id: 6, name: "Kelle Peyniri", packages: [{ label: "1 kg Paket", val: 1.0 }, { label: "0.5 kg Paket", val: 0.5 }], price: 360 },
-      { id: 7, name: "Taş Değirmen Mısır Unu", packages: [{ label: "1 kg Paket", val: 1.0 }, { label: "0.5 kg Paket", val: 0.5 }], price: 90 },
-      { id: 8, name: "Yayla Karakovan Balı", packages: [{ label: "1 kg Kavanoz", val: 1.0 }, { label: "0.5 kg Kavanoz", val: 0.5 }], price: 650 },
-      { id: 9, name: "Yayla Çiçek Balı", packages: [{ label: "1 kg Kavanoz", val: 1.0 }, { label: "0.5 kg Kavanoz", val: 0.5 }], price: 450 },
-      { id: 10, name: "Trabzon Köy İncir Reçeli", packages: [{ label: "1 kg Kavanoz", val: 1.0 }, { label: "0.5 kg Kavanoz", val: 0.5 }], price: 200 },
-      { id: 11, name: "Vakfıkebir Köy Ekmeği", packages: [{ label: "Büyük Ekmek", val: 1.0 }], price: 100 },
-      { id: 12, name: "Fındık Ezmesi", packages: [{ label: "0.5 kg Kavanoz", val: 0.5 }, { label: "1 kg Kavanoz", val: 1.0 }], price: 260 }
+    const MASTER_PRODUCTS = [
+      { id: 1, name: "Yayık Tereyağı", price: 380, pkg: 1.0 },
+      { id: 2, name: "Tuzlu Köy Tereyağı", price: 390, pkg: 1.0 },
+      { id: 3, name: "Trabzon Telli Tel Peyniri", price: 320, pkg: 1.0 },
+      { id: 4, name: "Hakiki Kolot Peyniri", price: 340, pkg: 1.0 },
+      { id: 5, name: "Köy Minzi (Çökelek)", price: 180, pkg: 1.0 },
+      { id: 6, name: "Kelle Peyniri", price: 360, pkg: 1.0 },
+      { id: 7, name: "Taş Değirmen Mısır Unu", price: 90, pkg: 1.0 },
+      { id: 8, name: "Yayla Karakovan Balı", price: 650, pkg: 1.0 },
+      { id: 9, name: "Yayla Çiçek Balı", price: 450, pkg: 1.0 },
+      { id: 10, name: "Köy İncir Reçeli", price: 200, pkg: 1.0 },
+      { id: 11, name: "Vakfıkebir Köy Ekmeği", price: 100, pkg: 1.0 },
+      { id: 12, name: "Fındık Ezmesi", price: 260, pkg: 0.5 }
     ];
 
-    function initProductList() {
-      const container = document.getElementById('productList');
-      container.innerHTML = '';
-      PRODUCTS.forEach(p => {
-        let pkgOptions = p.packages.map((pkg, idx) => `<option value="${idx}">${pkg.label}</option>`).join('');
-        const row = document.createElement('div');
-        row.className = 'product-row';
-        row.innerHTML = `
-          <div class="prod-header">
-            <span class="prod-name">${p.name}</span>
-            <span style="font-size:12px; color:#888;">${p.price} ₺/kg</span>
-          </div>
-          <div class="prod-inputs">
-            <select id="pkg_${p.id}" onchange="calculateTotal()">${pkgOptions}</select>
-            <input type="number" id="qty_${p.id}" min="0" placeholder="Adet" oninput="calculateTotal()">
-            <input type="number" id="price_${p.id}" value="${p.price}" oninput="calculateTotal()">
-          </div>
-          <div class="prod-subtotal" id="sub_${p.id}">0.00 ₺ (0 kg)</div>
-        `;
-        container.appendChild(row);
-      });
+    let currentOrderRows = [];
+
+    function addOrderItemRow() {
+      const rowId = Date.now() + Math.random();
+      currentOrderRows.push({ id: rowId, prodId: MASTER_PRODUCTS[0].id, pkgWeight: 1.0, qty: 1, price: MASTER_PRODUCTS[0].price });
+      renderOrderRows();
     }
 
-    function calculateTotal() {
-      let grandTotal = 0;
-      let totalKg = 0;
+    function removeOrderItemRow(rowId) {
+      currentOrderRows = currentOrderRows.filter(r => r.id !== rowId);
+      renderOrderRows();
+    }
 
-      PRODUCTS.forEach(p => {
-        const pkgIdx = parseInt(document.getElementById(`pkg_${p.id}`).value) || 0;
-        const pkgWeight = p.packages[pkgIdx].val;
-        const qty = parseFloat(document.getElementById(`qty_${p.id}`).value) || 0;
-        const unitPrice = parseFloat(document.getElementById(`price_${p.id}`).value) || 0;
+    function renderOrderRows() {
+      const container = document.getElementById('orderItemsContainer');
+      container.innerHTML = '';
 
-        const rowKg = qty * pkgWeight;
-        const rowTotal = rowKg * unitPrice;
+      currentOrderRows.forEach(row => {
+        const prod = MASTER_PRODUCTS.find(p => p.id === row.prodId) || MASTER_PRODUCTS[0];
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'order-item-box';
 
-        grandTotal += rowTotal;
-        totalKg += rowKg;
+        let prodOptions = MASTER_PRODUCTS.map(p => `<option value="${p.id}" ${p.id === row.prodId ? 'selected' : ''}>${p.name}</option>`).join('');
 
-        const subEl = document.getElementById(`sub_${p.id}`);
-        if (qty > 0) {
-          subEl.innerText = `${rowTotal.toFixed(2)} ₺ (${rowKg.toFixed(1)} kg)`;
-          subEl.style.color = 'var(--accent)';
-        } else {
-          subEl.innerText = `0.00 ₺ (0 kg)`;
-          subEl.style.color = 'var(--primary)';
-        }
+        rowDiv.innerHTML = `
+          <div class="item-top">
+            <select onchange="onProdChange('${row.id}', this.value)">${prodOptions}</select>
+            <button type="button" class="btn-del" onclick="removeOrderItemRow('${row.id}')">✕</button>
+          </div>
+          <div class="item-bottom">
+            <select onchange="onPkgChange('${row.id}', this.value)">
+              <option value="1.0" ${row.pkgWeight == 1.0 ? 'selected' : ''}>1 kg Paket</option>
+              <option value="0.5" ${row.pkgWeight == 0.5 ? 'selected' : ''}>0.5 kg Paket</option>
+            </select>
+            <input type="number" min="1" value="${row.qty}" placeholder="Adet" oninput="onQtyChange('${row.id}', this.value)">
+            <input type="number" value="${row.price}" placeholder="Fiyat ₺" oninput="onPriceChange('${row.id}', this.value)">
+          </div>
+          <div class="item-calc-info">
+            Tutar: ${(row.qty * row.pkgWeight * row.price).toFixed(2)} ₺ (${(row.qty * row.pkgWeight).toFixed(1)} kg)
+          </div>
+        `;
+        container.appendChild(rowDiv);
       });
 
-      document.getElementById('grandTotal').innerText = `${grandTotal.toFixed(2)} ₺`;
+      calculateOrderTotals();
+    }
+
+    function onProdChange(rowId, prodId) {
+      const row = currentOrderRows.find(r => r.id == rowId);
+      if (row) {
+        const prod = MASTER_PRODUCTS.find(p => p.id == prodId);
+        row.prodId = parseInt(prodId);
+        row.price = prod.price;
+        renderOrderRows();
+      }
+    }
+
+    function onPkgChange(rowId, val) {
+      const row = currentOrderRows.find(r => r.id == rowId);
+      if (row) {
+        row.pkgWeight = parseFloat(val);
+        renderOrderRows();
+      }
+    }
+
+    function onQtyChange(rowId, val) {
+      const row = currentOrderRows.find(r => r.id == rowId);
+      if (row) {
+        row.qty = parseFloat(val) || 0;
+        calculateOrderTotals();
+      }
+    }
+
+    function onPriceChange(rowId, val) {
+      const row = currentOrderRows.find(r => r.id == rowId);
+      if (row) {
+        row.price = parseFloat(val) || 0;
+        calculateOrderTotals();
+      }
+    }
+
+    function calculateOrderTotals() {
+      let total = 0;
+      let totalKg = 0;
+      currentOrderRows.forEach(r => {
+        const kg = r.qty * r.pkgWeight;
+        total += kg * r.price;
+        totalKg += kg;
+      });
+      document.getElementById('grandTotal').innerText = `${total.toFixed(2)} ₺`;
       document.getElementById('totalKgDisplay').innerText = `Toplam: ${totalKg.toFixed(1)} kg`;
     }
 
     function saveOrder(sendWhatsApp = false) {
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
+      const city = document.getElementById('custCity').value.trim();
       const address = document.getElementById('custAddress').value.trim();
 
       if (!name) { alert('Lütfen müşteri adını girin.'); return; }
+      if (currentOrderRows.length === 0) { alert('Lütfen en az bir ürün ekleyin.'); return; }
 
-      let items = [];
-      let orderTotal = 0;
-      let orderKg = 0;
-
-      PRODUCTS.forEach(p => {
-        const qty = parseFloat(document.getElementById(`qty_${p.id}`).value) || 0;
-        if (qty > 0) {
-          const pkgIdx = parseInt(document.getElementById(`pkg_${p.id}`).value) || 0;
-          const pkg = p.packages[pkgIdx];
-          const unitPrice = parseFloat(document.getElementById(`price_${p.id}`).value) || 0;
-          const totalRowKg = qty * pkg.val;
-          const rowPrice = totalRowKg * unitPrice;
-
-          items.push({
-            id: p.id,
-            name: p.name,
-            pkgLabel: pkg.label,
-            pkgWeight: pkg.val,
-            qty: qty,
-            totalKg: totalRowKg,
-            unitPrice: unitPrice,
-            totalPrice: rowPrice
-          });
-
-          orderTotal += rowPrice;
-          orderKg += totalRowKg;
-        }
+      let items = currentOrderRows.map(r => {
+        const prod = MASTER_PRODUCTS.find(p => p.id === r.prodId);
+        const kg = r.qty * r.pkgWeight;
+        return {
+          name: prod.name,
+          pkgLabel: r.pkgWeight == 0.5 ? '0.5 kg Paket' : '1 kg Paket',
+          qty: r.qty,
+          kg: kg,
+          price: r.price,
+          total: kg * r.price
+        };
       });
 
-      if (items.length === 0) { alert('Lütfen en az bir ürün miktarı girin.'); return; }
+      let orderTotal = items.reduce((sum, it) => sum + it.total, 0);
+      let orderKg = items.reduce((sum, it) => sum + it.kg, 0);
 
-      const newOrder = {
+      const order = {
         id: Date.now(),
         date: new Date().toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }),
-        name, phone, address, items, orderTotal, orderKg
+        name, phone, city, address, items, orderTotal, orderKg
       };
 
+      // Kaydet
       let orders = JSON.parse(localStorage.getItem('santa_orders') || '[]');
-      orders.unshift(newOrder);
+      orders.unshift(order);
       localStorage.setItem('santa_orders', JSON.stringify(orders));
+
+      // Müşteri rehberine ekle
+      let customers = JSON.parse(localStorage.getItem('santa_customers') || '{}');
+      customers[name] = { phone, city, address };
+      localStorage.setItem('santa_customers', JSON.stringify(customers));
 
       if (sendWhatsApp) {
         let msg = `*SANTA DOĞAL ÜRÜNLER - SİPARİŞ FİŞİ*\n`;
         msg += `--------------------------------\n`;
         msg += `👤 *Müşteri:* ${name}\n`;
-        if (address) msg += `📍 *Adres:* ${address}\n`;
-        msg += `📅 *Tarih:* ${newOrder.date}\n`;
+        if (city) msg += `📍 *Konum:* ${city}\n`;
+        if (address) msg += `🏠 *Adres:* ${address}\n`;
+        msg += `📅 *Tarih:* ${order.date}\n`;
         msg += `--------------------------------\n`;
         items.forEach(it => {
-          msg += `▫️ ${it.name}\n   ${it.qty} Adet (${it.pkgLabel}) = *${it.totalPrice.toFixed(2)} ₺*\n`;
+          msg += `▫️ ${it.name}\n   ${it.qty} Adet (${it.pkgLabel}) = *${it.total.toFixed(2)} ₺*\n`;
         });
         msg += `--------------------------------\n`;
         msg += `⚖️ *Toplam Ağırlık:* ${orderKg.toFixed(1)} kg\n`;
@@ -401,16 +482,39 @@
         alert('Sipariş başarıyla kaydedildi!');
       }
 
-      // Formu temizle
+      // Temizle
       document.getElementById('custName').value = '';
       document.getElementById('custPhone').value = '';
+      document.getElementById('custCity').value = '';
       document.getElementById('custAddress').value = '';
-      PRODUCTS.forEach(p => {
-        document.getElementById(`qty_${p.id}`).value = '';
-      });
-      calculateTotal();
+      currentOrderRows = [];
+      addOrderItemRow();
+      loadCustomersDropdown();
       renderHistory();
       renderLoadingSummary();
+      renderCustomersTab();
+    }
+
+    function loadCustomersDropdown() {
+      const customers = JSON.parse(localStorage.getItem('santa_customers') || '{}');
+      const select = document.getElementById('savedCustSelect');
+      select.innerHTML = '<option value="">-- Yeni Müşteri Gir --</option>';
+      Object.keys(customers).forEach(cName => {
+        select.innerHTML += `<option value="${cName}">${cName}</option>`;
+      });
+    }
+
+    function fillSavedCustomer() {
+      const val = document.getElementById('savedCustSelect').value;
+      if (!val) return;
+      const customers = JSON.parse(localStorage.getItem('santa_customers') || '{}');
+      const c = customers[val];
+      if (c) {
+        document.getElementById('custName').value = val;
+        document.getElementById('custPhone').value = c.phone || '';
+        document.getElementById('custCity').value = c.city || '';
+        document.getElementById('custAddress').value = c.address || '';
+      }
     }
 
     function renderLoadingSummary() {
@@ -419,31 +523,27 @@
       tbody.innerHTML = '';
 
       let totals = {};
-
       orders.forEach(o => {
         o.items.forEach(it => {
-          const key = `${it.name} - ${it.pkgLabel}`;
-          if (!totals[key]) {
-            totals[key] = { name: it.name, pkgLabel: it.pkgLabel, qty: 0, kg: 0 };
-          }
+          const key = `${it.name} (${it.pkgLabel})`;
+          if (!totals[key]) totals[key] = { qty: 0, kg: 0 };
           totals[key].qty += it.qty;
-          totals[key].kg += it.totalKg;
+          totals[key].kg += it.kg;
         });
       });
 
       const keys = Object.keys(totals);
       if (keys.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#999; padding:20px;">Henüz kayıtlı sipariş yok.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#999; padding:15px;">Henüz kayıtlı sipariş yok.</td></tr>`;
         return;
       }
 
       keys.forEach(k => {
-        const row = totals[k];
         tbody.innerHTML += `
           <tr>
-            <td><strong>${row.name}</strong><br><span style="font-size:12px; color:#777;">${row.pkgLabel}</span></td>
-            <td style="text-align:center; font-weight:bold;">${row.qty} paket</td>
-            <td class="num">${row.kg.toFixed(1)} kg</td>
+            <td><strong>${k}</strong></td>
+            <td style="text-align:center; font-weight:bold;">${totals[k].qty} paket</td>
+            <td class="num">${totals[k].kg.toFixed(1)} kg</td>
           </tr>
         `;
       });
@@ -455,57 +555,79 @@
 
       let totals = {};
       let totalCarKg = 0;
-
       orders.forEach(o => {
         o.items.forEach(it => {
           const key = `${it.name} (${it.pkgLabel})`;
           if (!totals[key]) totals[key] = { qty: 0, kg: 0 };
           totals[key].qty += it.qty;
-          totals[key].kg += it.totalKg;
-          totalCarKg += it.totalKg;
+          totals[key].kg += it.kg;
+          totalCarKg += it.kg;
         });
       });
 
       let msg = `🚐 *SANTA DOĞAL ÜRÜNLER - ARAÇ YÜKLEME LİSTESİ*\n`;
-      msg += `📅 Sevkiyat Tarihi: ${new Date().toLocaleDateString('tr-TR')}\n`;
-      msg += `👥 Toplam Sipariş Veren Müşteri: ${orders.length}\n`;
+      msg += `📅 Tarih: ${new Date().toLocaleDateString('tr-TR')}\n`;
+      msg += `👥 Toplam Sipariş: ${orders.length} Müşteri\n`;
       msg += `--------------------------------\n`;
       for (const [prod, data] of Object.entries(totals)) {
         msg += `📦 ${prod}: *${data.qty} Paket* (${data.kg.toFixed(1)} kg)\n`;
       }
       msg += `--------------------------------\n`;
-      msg += `⚖️ *ARACA YÜKLENECEK TOPLAM AĞIRLIK:* ${totalCarKg.toFixed(1)} kg\n`;
+      msg += `⚖️ *TOPLAM ARACIN YÜKÜ:* ${totalCarKg.toFixed(1)} kg\n`;
 
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
     function renderHistory() {
       const orders = JSON.parse(localStorage.getItem('santa_orders') || '[]');
-      const container = document.getElementById('ordersHistoryList');
+      const container = document.getElementById('ordersList');
       container.innerHTML = '';
 
       if (orders.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:#999; padding:20px;">Kayıtlı sipariş bulunmuyor.</p>`;
+        container.innerHTML = `<p style="text-align:center; color:#999; padding:15px;">Kayıtlı sipariş yok.</p>`;
         return;
       }
 
       orders.forEach(o => {
-        let itemsHtml = o.items.map(it => `<li>${it.name} (${it.pkgLabel}) x ${it.qty} = ${it.totalPrice.toFixed(2)} ₺</li>`).join('');
+        let itemsHtml = o.items.map(it => `<li>${it.name} (${it.pkgLabel}) x ${it.qty} = ${it.total.toFixed(2)} ₺</li>`).join('');
         container.innerHTML += `
           <div style="border-bottom:1px solid #eee; padding:10px 0;">
             <div style="display:flex; justify-content:space-between; font-weight:700;">
               <span>${o.name}</span>
               <span style="color:var(--primary);">${o.orderTotal.toFixed(2)} ₺</span>
             </div>
-            <div style="font-size:12px; color:#777; margin-bottom:4px;">${o.date} | Toplam: ${o.orderKg.toFixed(1)} kg</div>
-            <ul style="font-size:12px; color:#444; padding-left:16px;">${itemsHtml}</ul>
+            <div style="font-size:11px; color:#777; margin:2px 0;">${o.date} ${o.city ? '| ' + o.city : ''} (Toplam: ${o.orderKg.toFixed(1)} kg)</div>
+            <ul style="font-size:12px; color:#444; padding-left:16px; margin-top:4px;">${itemsHtml}</ul>
+          </div>
+        `;
+      });
+    }
+
+    function renderCustomersTab() {
+      const customers = JSON.parse(localStorage.getItem('santa_customers') || '{}');
+      const container = document.getElementById('customersList');
+      container.innerHTML = '';
+
+      const names = Object.keys(customers);
+      if (names.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#999; padding:15px;">Henüz kayıtlı müşteri yok.</p>`;
+        return;
+      }
+
+      names.forEach(name => {
+        const c = customers[name];
+        container.innerHTML += `
+          <div style="border-bottom:1px solid #eee; padding:8px 0;">
+            <strong style="font-size:13px;">${name}</strong>
+            <div style="font-size:11px; color:#666;">📞 ${c.phone || 'Telefon yok'}</div>
+            <div style="font-size:11px; color:#888;">📍 ${c.city || ''} ${c.address ? '- ' + c.address : ''}</div>
           </div>
         `;
       });
     }
 
     function clearAllOrders() {
-      if (confirm('Tüm sipariş kayıtları ve yükleme listesi sıfırlanacak. Emin misin?')) {
+      if (confirm('Tüm siparişler silinecek. Emin misin?')) {
         localStorage.removeItem('santa_orders');
         renderHistory();
         renderLoadingSummary();
@@ -516,7 +638,7 @@
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
+      event.currentTarget.classList.add('active');
 
       const bar = document.getElementById('liveBottomBar');
       if (tabId === 'tab-siparis') bar.style.display = 'flex';
@@ -524,12 +646,15 @@
 
       if (tabId === 'tab-yukleme') renderLoadingSummary();
       if (tabId === 'tab-gecmis') renderHistory();
+      if (tabId === 'tab-musteriler') renderCustomersTab();
     }
 
     window.onload = function() {
-      initProductList();
+      addOrderItemRow();
+      loadCustomersDropdown();
       renderLoadingSummary();
       renderHistory();
+      renderCustomersTab();
     };
   </script>
 </body>
