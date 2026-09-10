@@ -118,10 +118,17 @@
       background: #e53935;
       color: white;
       border: none;
-      width: 34px;
+      width: 36px;
       border-radius: 6px;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-del:active {
+      background: #b71c1c;
     }
     .item-row-2 {
       display: grid;
@@ -311,13 +318,17 @@
     let currentOrderRows = [];
 
     function addOrderItemRow() {
-      const rowId = Date.now() + Math.random();
+      const rowId = 'row_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
       currentOrderRows.push({ id: rowId, prodId: MASTER_PRODUCTS[0].id, pkgWeight: 1.0, qty: 1, price: MASTER_PRODUCTS[0].price });
       renderOrderRows();
     }
 
     function removeOrderItemRow(rowId) {
-      currentOrderRows = currentOrderRows.filter(r => r.id !== rowId);
+      if (currentOrderRows.length <= 1) {
+        currentOrderRows = [{ id: 'row_' + Date.now(), prodId: MASTER_PRODUCTS[0].id, pkgWeight: 1.0, qty: 1, price: MASTER_PRODUCTS[0].price }];
+      } else {
+        currentOrderRows = currentOrderRows.filter(r => String(r.id) !== String(rowId));
+      }
       renderOrderRows();
     }
 
@@ -326,6 +337,7 @@
       container.innerHTML = '';
 
       currentOrderRows.forEach(row => {
+        const prod = MASTER_PRODUCTS.find(p => p.id === row.prodId) || MASTER_PRODUCTS[0];
         const rowDiv = document.createElement('div');
         rowDiv.className = 'order-item-box';
 
@@ -352,7 +364,7 @@
     }
 
     function onProdChange(rowId, prodId) {
-      const row = currentOrderRows.find(r => r.id == rowId);
+      const row = currentOrderRows.find(r => String(r.id) === String(rowId));
       if (row) {
         const prod = MASTER_PRODUCTS.find(p => p.id == prodId);
         row.prodId = parseInt(prodId);
@@ -362,7 +374,7 @@
     }
 
     function onPkgChange(rowId, val) {
-      const row = currentOrderRows.find(r => r.id == rowId);
+      const row = currentOrderRows.find(r => String(r.id) === String(rowId));
       if (row) {
         row.pkgWeight = parseFloat(val);
         calculateOrderTotals();
@@ -370,7 +382,7 @@
     }
 
     function onQtyChange(rowId, val) {
-      const row = currentOrderRows.find(r => r.id == rowId);
+      const row = currentOrderRows.find(r => String(r.id) === String(rowId));
       if (row) {
         row.qty = parseFloat(val) || 0;
         calculateOrderTotals();
@@ -378,7 +390,7 @@
     }
 
     function onPriceChange(rowId, val) {
-      const row = currentOrderRows.find(r => r.id == rowId);
+      const row = currentOrderRows.find(r => String(r.id) === String(rowId));
       if (row) {
         row.price = parseFloat(val) || 0;
         calculateOrderTotals();
@@ -514,7 +526,7 @@
 
       const keys = Object.keys(totals);
       if (keys.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#999; padding:15px;">Kayıtlı sipariş yok.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#999; padding:15px;">Henüz kayıtlı sipariş yok.</td></tr>`;
         return;
       }
 
